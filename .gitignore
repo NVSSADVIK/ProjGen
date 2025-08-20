@@ -9,7 +9,6 @@ __pycache__/
 *.so
 
 .api_key.txt
-
 # Distribution / packaging
 .Python
 build/
