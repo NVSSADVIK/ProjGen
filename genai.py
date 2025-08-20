@@ -71,6 +71,7 @@ while True:
         if user_input.lower() == "exit":
             print("Exiting.........     Bye Then....")
             break
+    response = model.generate_content([system_prompt, user_input])
 
     print("\nAI: ", response.text)
 
