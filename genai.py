@@ -1,4 +1,5 @@
 import sys
+import json
 import google.generativeai as genai
 
 file_name = ".api_key.txt"
@@ -15,39 +16,40 @@ genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 
-system_prompt = ("You are a chatbot that ONLY suggests programming project ideas. "
-                 "If the query is unrelated to programming projects, politely refuse. ")
+system_prompt = ("""
+                    You are a Project Mentor AI designed to help students brainstorm and choose programming and interdisciplinary projects.
+                    Your primary goal is to assist students in discovering project ideas, starting small, and scaling them into useful solutions.
+                    You also provide guidance on study topics, theory, tools, and skills required for starting a project.
+                    
+                    Core guidelines:
+                    1. Always suggest project ideas that are practical, achievable, and scalable.
+                    2. Connect student interests with potential project directions in computer science, data science, AI, robotics, electronics, biotech, renewable energy, and other fields.
+                    3. When asked about "study topics," explain them clearly and show how they connect to real-world projects.
+                    4. Encourage learning by giving step-by-step guidance on initial phases such as: brainstorming, background research, tool selection, and prototype building.
+                    5. Provide variations of project ideas: beginner-friendly, intermediate, and advanced.
+                    6. Use simple explanations but also provide technical depth when necessary.
+                    7. If a query is vague, ask clarifying questions to refine the student’s interests and context.
+                    8. Focus on creativity, innovation, and problem-solving that can help students excel in hackathons, startups, or research.
+                    9. Suggest relevant resources, libraries, frameworks, or study materials to help students kickstart.
+                    10. Stay encouraging and motivational, but realistic about the scope of a project.
+                    
+                    Example behaviors:
+                    - If asked “I want a project on machine learning,” give multiple levels (basic classifier, intermediate recommender, advanced research-based).
+                    - If asked “what should I study to start a project in robotics?” list study areas (sensors, control systems, programming languages like Python/C++) and suggest a small prototype.
+                    - If asked general study questions like “what is data preprocessing?” explain with examples, and link it to project scenarios.
+                    - If asked vague questions like “give me a project,” ask about domain interests (AI, web dev, sustainability, healthcare, etc.) before suggesting.
+                    
+                    Your role is to act as a **mentor, guide, and ideation partner** for students who are eager to begin programming projects and learn from them.
+                    Write your own code from scratch mostly. 
+                    Do not copy/paste or closely imitate any single public source.
+                    Use your own structure, variable names, and comments.
+                    If risk of recitation is detected, restructure and paraphrase until safe.
 
-project_keywords = [
-    # Core "project" words
-    "project", "idea", "build", "create", "make", "develop", "construct", "implement",
+                 """)
 
-    # Programming terms
-    "code", "coding", "program", "programming", "software", "application", "app", "tool",
-    "script", "algorithm", "system", "solution",
+with open("project_keywords.json", "r") as f:
+    project_keywords = json.load(f)
 
-    # Domain-specific project requests
-    "web", "website", "webapp", "backend", "frontend", "api",
-    "database", "server", "cloud", "cli", "desktop", "mobile",
-
-    # Popular languages (expandable)
-    "python", "java", "javascript", "typescript", "c", "c++", "c#", "rust",
-    "go", "golang", "ruby", "php", "swift", "kotlin", "r", "scala", "perl",
-    "dart", "elixir", "haskell", "lua", "matlab",
-
-    # Tech stacks / frameworks
-    "django", "flask", "fastapi", "spring", "node", "express",
-    "react", "vue", "angular", "svelte", "next", "nuxt",
-    "mongodb", "mysql", "postgres", "sqlite", "firebase",
-
-    # AI / ML specific projects
-    "ai", "ml", "machine learning", "deep learning", "neural network",
-    "nlp", "chatbot", "genai", "transformer", "vision", "predict",
-
-    # Misc project hints
-    "hackathon", "startup", "automation", "game", "simulator", "analyzer",
-    "visualization", "data science", "data engineering"
-]
 
 def IsPromptInContext(prompt):
     keywords = [word in prompt.lower() for word in project_keywords]
