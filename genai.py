@@ -1,5 +1,8 @@
 import sys
 import google.generativeai as genai
+from rich.console import Console
+from rich.markdown import Markdown
+import re
 
 file_name = ".api_key.txt"
 try:
@@ -14,6 +17,22 @@ genai.configure(api_key=API_KEY)
 
 model = genai.GenerativeModel("gemini-2.0-flash")
 
+console = Console()
+
+MD_PUNCT = r"\*_`#\[\]\(\)~>+\-=!/"           
+UNESCAPE_RE = re.compile(rf"\\([{MD_PUNCT}])") 
+CODE_SPAN_RE = re.compile(r"(```.*?```|`[^`]*`)", re.DOTALL)
+
+
+def clean_markdown(md: str) -> str:
+    if not md:
+        return ""
+    parts = CODE_SPAN_RE.split(md)
+    for i, part in enumerate(parts):
+        # keep code spans verbatim; unescape only non-code parts
+        if not (part.startswith("```") and part.endswith("```")) and not (part.startswith("`") and part.endswith("`")):
+            parts[i] = UNESCAPE_RE.sub(r"\1", part)
+    return "".join(parts).replace("\r\n", "\n").replace("\r", "\n")
 
 system_prompt = ("You are a chatbot that ONLY suggests programming project ideas. "
                  "If the query is unrelated to programming projects, politely refuse. ")
@@ -72,7 +91,9 @@ while True:
             print("Exiting.........     Bye Then....")
             break
     response = model.generate_content([system_prompt, user_input])
-
-    print("\nAI: ", response.text)
+    text = response.text or ""
+    print("\nAI: ")
+    console.print(Markdown(clean_markdown(text)))
+    
 
 
