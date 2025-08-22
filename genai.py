@@ -7,6 +7,12 @@ from rich.console import Console
 from rich.markdown import Markdown
 import re
 
+# Local Imports
+from db_manip import DBManip
+
+db_instance = DBManip()
+db_instance.create_table()
+
 colorama.init(autoreset=True)
 
 file_name = ".api_key.txt"
@@ -80,6 +86,8 @@ def IsPromptInContext(prompt):
 
 # Initial Intro Message from the AI
 print(Style.BRIGHT + Fore.GREEN + "Project Suggestion Bot " + Fore.RED + "(type 'exit' to quit)")
+print(Style.BRIGHT + Fore.CYAN + "Help: (type 'help' or '?' to view the help menu")
+print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear char history)")
 print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Hey! I am friendly AI Chatbot for suggesting Programming Project Ideas.")
 print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
 print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
@@ -90,18 +98,28 @@ while True:
 
     user_input = input(Style.BRIGHT + Fore.GREEN + "\nPrompt: " + Style.NORMAL + Fore.GREEN)
 
-    if not IsPromptInContext(user_input):
-        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " The given prompt is outside of my context. I was trained only to help you get started with a programming project. ")
-        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Try asking for a programming project in python, c++ or any other language. ")
-    elif user_input.lower() == "exit":
+    if user_input.lower() == "exit":
         print(Fore.RED + "Exiting.........     Bye Then....")
         break
+    elif user_input.lower() == "help" or user_input.lower() == "?":
+        print(Style.BRIGHT + Fore.RED + "Exit: (type 'exit' to quit)")
+        print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear char history)")
+    elif user_input.lower() == "history":
+        print(Style.BRIGHT + Fore.YELLOW + "\nChat History\n")
+        db_instance.print_history()
+    elif user_input.lower() == "clear_history":
+        db_instance.clear_history()
+        print(Style.BRIGHT + Fore.YELLOW + "\nChat History is cleared!!!\n")
+    elif not IsPromptInContext(user_input):
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " The given prompt is outside of my context. I was trained only to help you get started with a programming project. ")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Try asking for a programming project in python, c++ or any other language. ")
     else:
         response = model.generate_content([system_prompt, user_input])
         text = response.text or ""
         print(Style.BRIGHT + Fore.BLUE + "\nAI: ")
         console.print(Markdown(clean_markdown(text)))
         print(Style.RESET_ALL)
+        db_instance.insert_data(user_input, text)
     
 
-
+db_instance.close_conn()
