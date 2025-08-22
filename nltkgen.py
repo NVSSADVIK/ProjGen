@@ -14,7 +14,7 @@ def create_wordlist(seed):
 
 seed = [
     # Core project actions
-    "project", "idea", "build", "create", "make", "develop", "programming",
+    "project", "idea", "build", "create", "develop", "programming",
     "software", "app", "tool", "automation", "system", "simulation", "model",
     "design", "analysis", "experiment", "prototype", "implementation",
     "deployment", "framework", "architecture", "workflow", "pipeline",
@@ -29,7 +29,7 @@ seed = [
     "evaluation", "findings", "results", "discussion", "conclusion",
 
     # Fields of study
-    "computer science", "data science", "ai", "machine learning",
+    "computer science", "data science", "artificial intelligence", "machine learning",
     "deep learning", "robotics", "cybersecurity", "blockchain",
     "biotechnology", "bioinformatics", "genetics", "nanotech",
     "neuroscience", "cognitive science", "mechanical", "civil",
@@ -47,12 +47,12 @@ seed = [
     "collaboration", "open source", "community", "competition",
 
     # Tech trends
-    "iot", "cloud", "edge computing", "big data", "data mining",
+    "internet",  "internet of things", "cloud", "edge computing", "big data", "data mining",
     "data visualization", "natural language processing",
     "computer vision", "recommendation system", "digital twin",
     "smart cities", "metaverse", "wearables", "3d printing",
     "autonomous vehicles", "drones", "biometrics", "cryptography",
-    "vr", "ar", "xr", "mixed reality", "quantum computing",
+    "virtual reality", "augumented reality", "extended reality", "mixed reality", "quantum computing",
 
     # Soft skills / process
     "brainstorming", "creativity", "innovation", "critical thinking",

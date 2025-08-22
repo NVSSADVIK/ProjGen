@@ -1,17 +1,21 @@
 import sys
 import json
+import colorama
+from colorama import Fore, Style
 import google.generativeai as genai
 from rich.console import Console
 from rich.markdown import Markdown
 import re
+
+colorama.init(autoreset=True)
 
 file_name = ".api_key.txt"
 try:
     with open(file_name, "r") as f:
         API_KEY = f.read().strip()
 except FileNotFoundError:
-        print("\nFileName not found.")
-        print("Please enter your API_KEY in .api_key.txt to continue...")
+        print(Style.BRIGHT + Fore.RED + "\nFileName not found.")
+        print(Fore.RED + "Please enter your API_KEY in .api_key.txt to continue...")
         sys.exit()
 genai.configure(api_key=API_KEY)
 
@@ -75,27 +79,29 @@ def IsPromptInContext(prompt):
     return any(keywords)
 
 # Initial Intro Message from the AI
-print("Project Suggestion Bot (type 'exit' to quit)")
-print("Hey! I am friendly AI Chatbot for suggesting Programming Project Ideas.")
-print("Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
-print("I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
+print(Style.BRIGHT + Fore.GREEN + "Project Suggestion Bot " + Fore.RED + "(type 'exit' to quit)")
+print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Hey! I am friendly AI Chatbot for suggesting Programming Project Ideas.")
+print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
+print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
+print(Style.RESET_ALL)
 
 
 while True:
 
-    user_input = input("\nPrompt: ")
+    user_input = input(Style.BRIGHT + Fore.GREEN + "\nPrompt: " + Style.NORMAL + Fore.GREEN)
 
     if not IsPromptInContext(user_input):
-        print("AI: The given prompt is outside of my context. I was trained only to help you get started with a programming project. ")
-        print("AI: Try asking for a programming project in python, c++ or any other language. ")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " The given prompt is outside of my context. I was trained only to help you get started with a programming project. ")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Try asking for a programming project in python, c++ or any other language. ")
+    elif user_input.lower() == "exit":
+        print(Fore.RED + "Exiting.........     Bye Then....")
+        break
     else:
-        if user_input.lower() == "exit":
-            print("Exiting.........     Bye Then....")
-            break
-    response = model.generate_content([system_prompt, user_input])
-    text = response.text or ""
-    print("\nAI: ")
-    console.print(Markdown(clean_markdown(text)))
+        response = model.generate_content([system_prompt, user_input])
+        text = response.text or ""
+        print(Style.BRIGHT + Fore.BLUE + "\nAI: ")
+        console.print(Markdown(clean_markdown(text)))
+        print(Style.RESET_ALL)
     
 
 
