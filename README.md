@@ -32,6 +32,7 @@ Make sure you have the following Python libraries installed before running the p
 - `google.generativeai`  
 - `rich`  
 - `re`  
+- `sqlite3`
 
 Install them using:  
 
@@ -43,10 +44,10 @@ pip install colorama google-generativeai rich
 
 ## Running the Project  
 
-After setting up dependencies and saving your API Key, run the chatbot:  
+After setting up dependencies and saving your API Key, run the chatbot(CLI Version).
 
 ```bash
-python projgen.py
+python genai.py
 ```
 
 ---
@@ -57,6 +58,7 @@ python projgen.py
 - **Gemini Flash 2.0 Powered:** Uses Google’s cloud-based AI for high-quality responses.  
 - **Local Execution with Cloud Intelligence:** Runs from your machine, connects securely to Gemini API.  
 - **Enhanced Console Experience:** Clean and colorful output using `colorama` + `rich`.  
+- **Chat History:** Storage of Chat History to enhance the User Experience to provide Personalized Results.
 
 ---
 

@@ -3,7 +3,13 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Ignore swap files
 *.swp
+
+# Ignore DB Files
+.history.db
+.temp_history.db
+
 
 # C extensions
 *.so
