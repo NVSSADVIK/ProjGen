@@ -1,6 +1,7 @@
 import sqlite3
 import datetime
 
+# sqlite connection to db
 conn = sqlite3.connect(".history.db")
 cur = conn.cursor()
 
@@ -18,13 +19,28 @@ class DBManip:
                     response TEXT
                     )
                     """)
+        cur.execute("""
+                    CREATE TABLE IF NOT EXISTS temp_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    date DATETIME,
+                    prompt TEXT,
+                    response TEXT
+                    )
+                    """)
         conn.commit()
     def insert_data(self, prompt, response):
         cur.execute("INSERT INTO history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
+        cur.execute("INSERT INTO temp_history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
         conn.commit()
 
     def print_history(self):
         cur.execute("SELECT * FROM history")
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+        conn.commit()
+    def print_temp_history(self):
+        cur.execute("SELECT * FROM temp_history")
         rows = cur.fetchall()
         for row in rows:
             print(row)
@@ -35,7 +51,7 @@ class DBManip:
         self.create_table()
         conn.commit()
 
-
     def close_conn(self):
+        cur.execute("DROP TABLE temp_history")
         cur.close()
         conn.close()
