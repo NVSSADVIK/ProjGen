@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 
 # sqlite connection to db
-conn = sqlite3.connect(".history.db")
+conn = sqlite3.connect(".history.db", check_same_thread=False)
 cur = conn.cursor()
 
 class DBManip:
@@ -28,7 +28,7 @@ class DBManip:
                     )
                     """)
         conn.commit()
-    def insert_data(self, prompt, response):
+    def insert_message(self, prompt, response):
         cur.execute("INSERT INTO history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
         cur.execute("INSERT INTO temp_history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
         conn.commit()
