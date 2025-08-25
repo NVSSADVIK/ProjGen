@@ -3,10 +3,31 @@ document.querySelector('form').addEventListener('submit', (e) => {
     const queryInput = document.querySelector('.tec').value;
     if (queryInput) {
         // Remove initial h1 only if it exists (first submission)
-        const h1 = document.querySelector('.wrapper h1');
-        if (h1) {
-            h1.remove();
+        const wel = document.querySelector('.wel');
+        if (wel) {
+            if (wel) {
+                wel.remove();
+        }}
+
+        // Move ProjGen to the top
+        const projgen = document.querySelector('.projgen');
+        if (projgen ) {
+            // Set initial styles for smooth transition
+            projgen.style.position = 'absolute';
+            projgen.style.left = '45%';
+            projgen.style.top = '10%';
+            projgen.style.opacity = '0'; // Start hidden
+            projgen.style.transform = 'translateY(20px)'; // Start slightly below
+
+            // Trigger the transition
+            setTimeout(() => {
+                projgen.style.transition = 'transform 1ms linear, opacity 2s ease-in-out';
+                projgen.style.opacity = '1'; // Fade in
+                projgen.style.transform = 'translateY(0)'; // Move to original position
+            }, 10); // Small delay to allow the browser to register the initial styles
         }
+        
+
 
         // Create new query display
         const queryDisplay = document.createElement('div');
@@ -19,7 +40,7 @@ document.querySelector('form').addEventListener('submit', (e) => {
         queryText.style.paddingLeft = '10px';
         queryText.style.paddingRight = '2.5px';
         queryText.style.textAlign = 'left';
-        queryText.style.backgroundColor = 'rgba(255, 255, 255, 0.73)'; 
+        queryText.style.backgroundColor = 'rgba(255, 255, 255, 1)'; 
         queryText.style.border = '2px solid rgba(255, 255, 255, 1)';
         queryText.style.borderRadius = '20px';
         queryText.style.color = 'rgb(0, 0, 0)';
