@@ -62,7 +62,7 @@ document.querySelector('form').addEventListener('submit', (e) => {
         }, 10);
 
         // ✅ Send query to Django so it prints in terminal
-        fetch("/chatbot/", {
+        fetch("", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

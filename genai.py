@@ -13,7 +13,7 @@ from db_manip import DBManip
 
 class ProjGen:
     def __init__(self):
-        self.API_KEY = self.load_api_key(".api_key.txt")
+        self.API_KEY = None
 
         self.db = DBManip()
         self.db.create_table()
@@ -28,12 +28,11 @@ class ProjGen:
         self.UNESCAPE_RE = re.compile(rf"\\([{self.MD_PUNCT}])") 
         self.CODE_SPAN_RE = re.compile(r"(```.*?```|`[^`]*`)", re.DOTALL)
 
-        self.display_intro()
 
     def load_api_key(self, file_name):
         try:
             with open(file_name, "r") as f:
-                return f.read().strip()
+                self.API_KEY = f.read().strip()
         except FileNotFoundError:
                 print(Style.BRIGHT + Fore.RED + "\nFileName not found.")
                 print(Fore.RED + "Please enter your API_KEY in .api_key.txt to continue...")
@@ -100,7 +99,11 @@ class ProjGen:
         print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
         print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
         print(Style.RESET_ALL)
-    
+    def send_message(self, user_input):
+        response = self.chat.send_message(user_input)
+        return response.text or ""
+    def print_fmt_response(self, response):
+        self.console.print(Markdown(self.clean_markdown(response)))
     
     def main_loop(self):
         while True:
@@ -119,17 +122,18 @@ class ProjGen:
                 self.db.clear_history()
                 print(Style.BRIGHT + Fore.YELLOW + "\nChat History is cleared!!!\n")
             else:
-                response = self.chat.send_message(user_input)
-                text = response.text or ""
+                response = self.send_message(user_input)
                 print(Style.BRIGHT + Fore.BLUE + "\nAI: ")
-                self.console.print(Markdown(self.clean_markdown(text)))
+                self.console.print(Markdown(self.clean_markdown(response)))
                 print(Style.RESET_ALL)
-                self.db.insert_message(user_input, text)
+                self.db.insert_message(user_input, response)
         self.db.close_conn()
 
 def main():
     chatbot = ProjGen()
+    chatbot.load_api_key("./.api_key.txt")
     chatbot.start_chatbot()
+    chatbot.display_intro()
     chatbot.main_loop()
 
 if __name__ == "__main__":

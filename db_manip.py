@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 
 # sqlite connection to db
-conn = sqlite3.connect(".history.db")
+conn = sqlite3.connect(".history.db", check_same_thread=False)
 cur = conn.cursor()
 
 class DBManip:
