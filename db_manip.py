@@ -28,7 +28,7 @@ class DBManip:
                     )
                     """)
         conn.commit()
-    def insert_data(self, prompt, response):
+    def insert_message(self, prompt, response):
         cur.execute("INSERT INTO history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
         cur.execute("INSERT INTO temp_history (date, prompt, response) VALUES (?, ?, ?)", (datetime.datetime.now().isoformat(" "), prompt, response))
         conn.commit()
