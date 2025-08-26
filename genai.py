@@ -44,7 +44,6 @@ class ProjGen:
         
         system_prompt = ("""
                          You are Project Mentor AI, a chatbot that helps students brainstorm and start programming and interdisciplinary projects.
-        
         Your purpose:
         - Suggest practical, achievable, and scalable project ideas.
         - Connect student interests with project directions in CS, AI, robotics, electronics, biotech, sustainability, and related fields.
@@ -99,10 +98,13 @@ class ProjGen:
         print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
         print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
         print(Style.RESET_ALL)
+        
     def send_message(self, user_input):
         response = self.chat.send_message(user_input)
+        self.db.insert_message(user_input, response.text or "")
         return response.text or ""
     def print_fmt_response(self, response):
+
         self.console.print(Markdown(self.clean_markdown(response)))
     
     def main_loop(self):
