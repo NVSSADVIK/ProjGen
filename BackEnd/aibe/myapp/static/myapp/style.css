@@ -34,11 +34,20 @@ body {
     justify-content: center;
     position: absolute;
     bottom: 8vh;
-    width: 100%;
+    width: 100vh;
     padding: 0 2rem;
+    left: 50vw;
+    transform: translateX(-50%);
 }
 
-.text-box .tec {
+.text-box .search-wrapper {
+    position: relative;
+    width: 100%;
+    top: 0%;
+
+}
+
+.text-box .search-wrapper .tec {
     height: 50px;
     width: 100%;
     min-width: 300px;
@@ -51,9 +60,12 @@ body {
     margin-right: 10px;
 }
 
-.text-box .bt {
-    height: 53px;
-    width: 53px;
+.text-box .search-wrapper .bt {
+    position: absolute;
+    top: 0%;
+    left: 101%;
+    height: 50px;
+    width: 50px;
     border: none;
     border-radius: 40px;
     font-family: "Comfortaa", sans-serif;
@@ -61,8 +73,10 @@ body {
     background-color: white
 }
 
-.text-box .bt:hover {
-    border: 3px solid rgb(22, 21, 21); 
+.text-box .search-wrapper .bt:hover {
+    border: 3px solid black;
+    transition: border 0.1s ease;
+
 }
 
 .wrapper .welcome {
@@ -77,7 +91,9 @@ body {
     text-align: center;
 }
 
+
 .text-box .fa-solid.fa-magnifying-glass {
+    position: absolute;
     background-color: black;
     color: white;
     border-radius: 50%;
@@ -86,11 +102,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    left: calc(50% - 120px - 350.3px);
-    top: 50%;
+    left: 1.5%;
+    top: 52%;
     transform: translateY(-50%);
     font-size: 16px;
+    z-index: 1;
+    scale: 1.1;
+
 }
 
 .moon {
@@ -149,9 +167,11 @@ body {
         min-width: 250px; /* Slightly smaller min-width for mobile */
     }
 
+    /*
     .text-box .fa-solid.fa-magnifying-glass {
-        left: calc(50% - 125px - 30px); /* Adjust for smaller input */
+        left: calc(50% - 125px - 30px); /* Adjust for smaller input 
     }
+    */
 
     .wrapper h1 {
         top: 20%; /* Move closer to moon on smaller screens */
@@ -165,7 +185,12 @@ body {
         height: 8vh;
     }
 }
-
+@media (max-width: 500px) {
+  .text-box {
+    width: 80%;
+    font-size: 0.9rem;
+  }
+}
 
 .chat-container {
   position: absolute;

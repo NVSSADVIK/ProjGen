@@ -48,10 +48,12 @@
 
     <!-- Input Form -->
     <form method="POST" action="" class="text-box">
-      {% csrf_token %}
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" name="query" class="tec" placeholder="What is your query today ?" required>
-      <input type="submit" class="bt" value="Go">
+        {% csrf_token %}
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" name="query" class="tec" placeholder="What is your query today ?" required>
+            <input type="submit" class="bt" value="Go">
+        </div>
     </form>
   </div>
 
