@@ -76,7 +76,7 @@ document.querySelector('form').addEventListener('submit', (e) => {
             };
 
             // Fetch AI response from backend
-            fetch('AIzaSyBy1WqPeSNlioWpJaYsHJG_YSHjtFKxkEs', {
+            fetch('your api key', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
