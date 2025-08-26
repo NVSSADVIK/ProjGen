@@ -9,6 +9,17 @@ body {
     background: radial-gradient(ellipse at bottom, #01011c 0%, #100f3f 100%);
     overflow: hidden;
 }
+.wrapper h1 {
+    position: absolute;
+    top: 5%; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: wheat;
+    font-family: "Comfortaa", sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: bold;
+    text-align: center;
+}
 
 .wrapper .text-box {
     display: flex;
@@ -40,17 +51,17 @@ body {
     border-radius: 40px;
     font-family: "Comfortaa", sans-serif;
     cursor: pointer;
+    background-color: white
 }
 
 .text-box .bt:hover {
-    border: 3px solid rgb(22, 21, 21);
-    transition: border 0.3s ease;
+    border: 3px solid rgb(22, 21, 21); 
 }
 
-.wrapper h1 {
+.wrapper .welcome {
     position: absolute;
     top: 25%; 
-    left: 50%;
+    left: 45%;
     transform: translateX(-50%);
     color: wheat;
     font-family: "Comfortaa", sans-serif;
@@ -58,7 +69,17 @@ body {
     font-weight: bold;
     text-align: center;
 }
-
+.wrapper .projgen {
+    position: absolute;
+    top: 25%; 
+    left: 56%;
+    transform: translateX(-50%);
+    color: wheat;
+    font-family: "Comfortaa", sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: bold;
+    text-align: center;
+}
 .text-box .fa-solid.fa-magnifying-glass {
     background-color: black;
     color: white;
@@ -149,5 +170,53 @@ body {
 }
 
 
+.chat-container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  height: 70vh;
+  padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0ff;
+  overflow-y: auto;   /* allow scrolling */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  direction: ltr;     /* Default direction - scrollbar appears on right in LTR languages */
+}
+
+/* user bubble (right) */
+.query-display {
+    align-self: flex-end;
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* AI bubble (left) */
+.response-display {
+    align-self: flex-start;
+    background-color: rgba(240, 240, 255, 1);
+    color: rgb(30, 30, 80);
+    border: 2px solid rgba(200, 200, 255, 1);
+    border-radius: 20px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 
