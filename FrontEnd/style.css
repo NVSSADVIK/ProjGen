@@ -11,7 +11,7 @@ body {
 }
 .wrapper h1 {
     position: absolute;
-    top: 25%; 
+    top: 5%; 
     left: 50%;
     transform: translateX(-50%);
     color: wheat;
@@ -171,18 +171,21 @@ body {
 
 
 .chat-container {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 700px;
-    height: 70vh;
-    padding: 10px;
-    overflow-y: auto;   /* allow scrolling */
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  height: 70vh;
+  padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0ff;
+  overflow-y: auto;   /* allow scrolling */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  direction: ltr;     /* Default direction - scrollbar appears on right in LTR languages */
 }
 
 /* user bubble (right) */

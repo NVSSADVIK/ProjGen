@@ -2,6 +2,9 @@ document.querySelector('form').addEventListener('submit', (e) => {
     e.preventDefault(); 
     const queryInput = document.querySelector('.tec').value;
     if (queryInput) {
+        // Clear input immediately after getting the value
+        document.querySelector('.tec').value = '';
+        
         // Remove initial h1 only if it exists (first submission)
         const wel = document.querySelector('.wel');
         if (wel) {
@@ -156,6 +159,10 @@ setTimeout(() => {
             queryText.style.transform = 'translateY(0)';
         }, 10);
 
-        document.querySelector('.tec').value = ''; // Clear input
+        // Scroll to bottom to show latest content
+        setTimeout(() => {
+            const wrapper = document.querySelector('.wrapper');
+            wrapper.scrollTop = wrapper.scrollHeight;
+        }, 50);
     }
 });
