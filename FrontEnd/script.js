@@ -30,32 +30,104 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
 
         // Create new query display
-        const queryDisplay = document.createElement('div');
-        queryDisplay.className = 'query-display text-box';
+        // 
+        // Simulate AI response (frontend only)
+        setTimeout(() => {
+            // Create response bubble
+            const responseDisplay = document.createElement('div');
+            responseDisplay.className = 'response-display text-box';
 
-        const queryText = document.createElement('div');
-        queryText.className = 'tec';
-        queryText.style.paddingTop = '10px';
-        queryText.style.paddingBottom = '10px';
-        queryText.style.paddingLeft = '10px';
-        queryText.style.paddingRight = '2.5px';
-        queryText.style.textAlign = 'left';
-        queryText.style.backgroundColor = 'rgba(255, 255, 255, 1)'; 
-        queryText.style.border = '2px solid rgba(255, 255, 255, 1)';
-        queryText.style.borderRadius = '20px';
-        queryText.style.color = 'rgb(0, 0, 0)';
-        queryText.style.pointerEvents = 'none'; 
-        queryText.style.display = 'inline-block';
-        queryText.style.whiteSpace = 'normal';   // allows wrapping
-        queryText.style.maxWidth = '400px';      // limit bubble width
-        queryText.style.minWidth = '50px';       // small min size
+            const responseText = document.createElement('div');
+            responseText.className = 'ai-response';
+            responseText.style.padding = '10px';
+            responseText.style.textAlign = 'left';
+            responseText.style.backgroundColor = 'rgba(240, 240, 255, 1)';
+            responseText.style.border = '2px solid rgba(200, 200, 255, 1)';
+            responseText.style.borderRadius = '20px';
+            responseText.style.color = 'rgb(30, 30, 80)';
+            responseText.style.pointerEvents = 'none';
+            responseText.style.display = 'inline-block';
+            responseText.style.whiteSpace = 'normal';
+            responseText.style.maxWidth = '400px';
+            responseText.style.minWidth = '50px';
+            responseText.textContent = 'This is a simulated AI response for: ' + queryInput;
 
-        queryText.textContent = queryInput;
-        queryDisplay.style.opacity = '0';
-        queryDisplay.style.transform = 'translate(-50%, -40%)';
-        queryDisplay.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-out';
-        queryText.style.opacity = '0';
-        queryText.style.transform = 'translateY(10px)';
+            responseDisplay.style.opacity = '0';
+            responseDisplay.style.transform = 'translate(-50%, -40%)';
+            responseDisplay.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-out';
+            responseText.style.opacity = '0';
+            responseText.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-out';
+            // Fetch AI response from backend
+            // Dynamically adjust wrapper height for new responses
+            const updateWrapperHeight = () => {
+                const allDisplays = document.querySelectorAll('.query-display, .response-display');
+                let maxBottom = 0;
+                allDisplays.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    maxBottom = Math.max(maxBottom, rect.bottom);
+                });
+                const wrapperRect = wrapper.getBoundingClientRect();
+                if (maxBottom > wrapperRect.bottom) {
+                    wrapper.style.height = (maxBottom - wrapperRect.top + 40) + 'px';
+                }
+            };
+
+            // Fetch AI response from backend
+            fetch('AIzaSyBy1WqPeSNlioWpJaYsHJG_YSHjtFKxkEs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: queryInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseText.textContent = data.response || 'No response from AI.';
+                updateWrapperHeight();
+            })
+            .catch(() => {
+                responseText.textContent = 'Error connecting to AI backend.';
+                updateWrapperHeight();
+            });
+
+            // Also update height after animation
+            setTimeout(updateWrapperHeight, 400);
+            const chatContainer = document.querySelector('.chat-container');
+
+// Create user bubble
+const queryDisplay = document.createElement('div');
+queryDisplay.className = 'query-display';
+queryDisplay.textContent = queryInput;
+chatContainer.appendChild(queryDisplay);
+chatContainer.scrollTop = chatContainer.scrollHeight; // auto-scroll
+
+// Simulate / fetch AI response
+setTimeout(() => {
+    const responseDisplay = document.createElement('div');
+    responseDisplay.className = 'response-display';
+    responseDisplay.textContent = 'This is a simulated AI response for: ' + queryInput;
+
+    chatContainer.appendChild(responseDisplay);
+    chatContainer.scrollTop = chatContainer.scrollHeight; // auto-scroll
+}, 700);
+
+            wrapper.appendChild(responseDisplay);
+
+            // Position response below the query
+            responseDisplay.style.position = 'absolute';
+            responseDisplay.style.left = '80%';
+            responseDisplay.style.width = '100%';
+            responseDisplay.style.maxWidth = '700px';
+            responseDisplay.style.zIndex = '10';
+            responseDisplay.style.top = `calc(50% + ${verticalOffset + 40}px)`;
+
+            setTimeout(() => {
+            responseDisplay.style.opacity = '1';
+            responseDisplay.style.transform = `translate(-50%, -50%)`;
+            responseText.style.opacity = '1';
+            responseText.style.transform = 'translateY(0)';
+            }, 10);
+        }, 700); // Simulate delay
         queryText.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-out';
 
         queryDisplay.appendChild(queryText);
