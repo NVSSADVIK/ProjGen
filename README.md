@@ -1,4 +1,8 @@
 # ProjGen
+---
+![Web UI Image](./assets/Web_UI.png)
+![CLI UI Image](./assets/CLI_UI.png)
+---
 **ProjGen** is a **Simple Generative AI Chat Bot** designed to help students in colleges and universities kickstart projects in their field of interest.  
 This project runs locally on your machine but **connects to Google's cloud-based Gemini Flash 2.0 model** through the `google.generativeai` library. All interactions are powered by **Gemini Flash 2.0**, giving you fast, context-aware, and intelligent project ideation support.  
 
