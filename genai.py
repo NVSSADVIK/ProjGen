@@ -89,14 +89,16 @@ class ProjGen:
         return "".join(parts).replace("\r\n", "\n").replace("\r", "\n")
     
     
+
     def display_intro(self):
         # Initial Intro Message from the AI
-        print(Style.BRIGHT + Fore.GREEN + "Project Suggestion Bot " + Fore.RED + "(type 'exit' to quit)")
-        print(Style.BRIGHT + Fore.CYAN + "Help: (type 'help' or '?' to view the help menu")
-        print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear char history)")
-        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Hey! I am friendly AI Chatbot for suggesting Programming Project Ideas.")
-        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me things like 'suggest a programming project' or 'Give me a web dev project'")
-        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I won't answer unrelated questions, but I'll help you to brainstorm cool coding projects.")
+        print(Style.BRIGHT + Fore.GREEN + "ProjGen - AI Project Ideation Assistant " + Fore.RED + "(type 'exit' to quit)")
+        print(Style.BRIGHT + Fore.CYAN + "Help: (type 'help' or '?' to view the help menu)")
+        print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear chat history)")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Hello! I'm ProjGen, powered by Gemini Flash 2.0.")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I help students discover exciting programming projects tailored to their interests.")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " Ask me for project ideas in any domain - Web Dev, Mobile Apps, AI/ML, Games & more!")
+        print(Style.BRIGHT + Fore.BLUE + "AI:" + Style.NORMAL + " I focus on programming projects, so let's brainstorm something amazing!")
         print(Style.RESET_ALL)
         
     def send_message(self, user_input):
@@ -116,7 +118,7 @@ class ProjGen:
                 break
             elif user_input.lower() == "help" or user_input.lower() == "?":
                 print(Style.BRIGHT + Fore.RED + "Exit: (type 'exit' to quit)")
-                print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear char history)")
+                print(Style.BRIGHT + Fore.YELLOW + "History: (type 'history' to view chat history) (type 'clear_history' to clear chat history)")
             elif user_input.lower() == "history":
                 print(Style.BRIGHT + Fore.YELLOW + "\nChat History\n")
                 self.db.print_history()
