@@ -10,6 +10,7 @@ class DBManip:
         # Create a table inside the db if not exists
         self.create_table()
 
+
     def create_table(self):
         cur.execute("""
                     CREATE TABLE IF NOT EXISTS history (

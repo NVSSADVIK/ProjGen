@@ -11,9 +11,14 @@ body {
     overflow-y: scroll;
     margin: 0;
     background: radial-gradient(
-    circle at 10% 10%,
-    rgba(16, 15, 63, 1) 0%,
-    rgba(0, 0, 0, 1) 70%
+    circle at calc(10vh + 6%) calc(10vh + 5%),
+    /*rgba(16, 15, 63, 1) 0%,
+    rgba(0, 0, 0, 1) 70% */
+
+    #000000 5%,
+    #1b0049 100%
+
+
     );
 }
 .wrapper h1 {
